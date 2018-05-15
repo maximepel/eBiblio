@@ -1,0 +1,33 @@
+﻿@model eBiblio.ViewModels.LivresPourUnAuteur
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_Bootstrap")
+    <title>Auteur</title>
+</head>
+<body>
+    @Html.Partial("_Menu")
+    <div class="container">
+        <h1>Les livres de <strong>@Model.Auteur.Nom</strong></h1>
+        <table class="table table-bordered">
+            <tr>
+                <th>Titre du livre</th>
+                <th>Date de parution</th>
+            </tr>
+            @foreach (eBiblio.Models.Livre livre in Model.ListeLivres)
+            {
+                <tr>
+                    <td>@livre.Titre</td>
+                    <td>@livre.DateDeParution.ToString("dd / MM / yyyy")</td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

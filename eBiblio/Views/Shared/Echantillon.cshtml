@@ -1,0 +1,23 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_Bootstrap")
+    <title>CreerEchantillon</title>
+</head>
+<body>
+    @Html.Partial("_Menu")
+    <div class="container alert alert-success">
+        <h1>Vous avez créé l'échantillon en base de donnée locale avec EntityFramework </h1>
+    </div>
+    <div class="container alert alert-danger">
+        <h1> Ne pas recommencer la manipulation, sinon les doublons vont s'accumuler ou faire planter (A cause des contraintes de clé uniques) </h1>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+﻿<header>
+    <nav class="navbar navbar-toggleable-md navbar-expand-sm bg-dark navbar-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse">
+            @Html.ActionLink("eBibliothèque", "Index", "Afficher", null, new { @class = "navbar-brand" })
+
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">@Html.ActionLink("Liste des livres", "Index", "Afficher", null, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Liste des auteurs", "Auteurs", "Afficher", null, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Créer un Auteur", "Auteur", "Creer", null, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Créer un Livre", "Livre", "Creer", null, new { @class = "nav-link" })</li>
+            </ul>
+
+            <div class="form-inline my-2 my-lg-0">
+                @using (Html.BeginForm("Index", "Rechercher", FormMethod.Post))
+                {
+                    @Html.TextBox("recherche", null, new { @class = "form-control mr-sm-2", placeholder = "Livre ou auteur..." })
+                    <button class="btn btn-primary my-2 my-sm-0" type="submit">Rechercher</button>
+                }
+            </div>
+        </div>
+    </nav>
+</header>

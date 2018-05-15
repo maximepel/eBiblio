@@ -1,0 +1,53 @@
+﻿@model eBiblio.ViewModels.CreerLivre
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_Bootstrap")
+    <title>Ajouter un Livre</title>
+</head>
+<body>
+    @Html.Partial("_Menu")
+    <div class="container">
+        @using (Html.BeginForm())
+        {
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Titre, new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.Titre, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Titre, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DateDeParution, new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(model => model.DateDeParution, new { type = "date", placeholder = "jj/mm/aaaa", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DateDeParution, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AuteurId, new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.AuteurId, (SelectList)Model.Auteurs, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(expression: model => model.AuteurId, validationMessage: "", htmlAttributes: new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-6 text-center">
+                    <input type="submit" value="Créer le livre" class="btn btn-warning" />
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</body>
+</html>

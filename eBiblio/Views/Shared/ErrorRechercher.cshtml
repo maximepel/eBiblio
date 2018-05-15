@@ -1,0 +1,20 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_Bootstrap")
+    <title>ErrorRechercher</title>
+</head>
+<body>
+    @Html.Partial("_Menu")
+    <div class="container alert alert-danger">
+        <h2><strong>ERROR</strong> : la recherche n'a pas abouti. </h2>
+    </div>
+</body>
+</html>
