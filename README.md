@@ -21,6 +21,6 @@ Réaliser une simulation d'application web d'objets livres/auteurs/clients.
 
 **Choix de réalisation**
 
-> En plus de la consigne de base, j'ai préféré utiliser EntityFramework pour gérer une vraie base de données, contrairement à ce que préconisait la consigne.
+> En plus de la consigne de base, j'ai préféré utiliser EntityFramework pour gérer une vraie base de données, contrairement à ce que préconisait la consigne qui demandait simplement de créer des objets non persistants.
 
 > J'ai assigné la barre de recherche à la barre de menu dans une vue partielle que j'ai généralisé à toutes les pages, plus ergonomique, pratique, logique.
