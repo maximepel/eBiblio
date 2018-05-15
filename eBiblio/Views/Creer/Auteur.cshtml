@@ -1,37 +1,24 @@
 ﻿@model eBiblio.Models.Auteur
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Créer - Auteur";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    @Html.Partial("_Bootstrap")
-    <title>Ajouter un Auteur</title>
-</head>
-<body>
-    @Html.Partial("_Menu")
-    <div class="container">
-        @using (Html.BeginForm())
-        {
-            <div class="form-horizontal">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Nom, new { @class = "control-label col-md-2" })
-                    <div class="col-md-8">
-                        @Html.TextBoxFor(model => model.Nom, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Nom, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-6 text-center">
-                        <input type="submit" value="Créer l'auteur" class="btn btn-warning" />
-                    </div>
-                </div>
+<h2>Ajouter un auteur à la base de données</h2>
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nom, new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(model => model.Nom, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Nom, "", new { @class = "text-danger" })
             </div>
-        }
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6 text-center">
+                <input type="submit" value="Créer l'auteur" class="btn btn-warning" />
+            </div>
+        </div>
     </div>
-</body>
-</html>
+}

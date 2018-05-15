@@ -1,31 +1,16 @@
 ﻿@model eBiblio.Models.Livre
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Afficher - Information sur un livre";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    @Html.Partial("_Bootstrap")
-    <title>Livre</title>
-</head>
-<body>
-    @Html.Partial("_Menu")
-    <div class="container">
-        <h1>@Model.Titre</h1>
-        <p>De @Model.Auteur.Nom</p>
-        <p>Parution : @Model.DateDeParution.ToString("dd / MM / yyyy")</p>
-        @if (@Model.Client != null)
-        {
-            <p>Emprunté par : @Model.Client.Nom (@Model.Client.Email)</p>
-        }
-        else
-        {
-            <p>Cet ouvrage est libre.</p>
-        }
-
-    </div>
-</body>
-</html>
+<h1>@Model.Titre</h1>
+<p>De @Model.Auteur.Nom</p>
+<p>Parution : @Model.DateDeParution.ToString("dd / MM / yyyy")</p>
+@if (@Model.Client != null)
+{
+    <p>Emprunté par : @Model.Client.Nom (@Model.Client.Email)</p>
+}
+else
+{
+    <p>Cet ouvrage est libre.</p>
+}

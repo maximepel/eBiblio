@@ -1,41 +1,27 @@
 ﻿@model List<eBiblio.Models.Livre>
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Afficher - Liste des livres";
 }
+<h1>Liste des Livres de la bibliothèque</h1>
+<p>Clique sur le titre du livre pour voir sa fiche et le modifier</p>
+<table class="table table-bordered table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Titre du livre</th>
+            <th scope="col">Date de parution</th>
+            <th scope="col">Auteur</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (eBiblio.Models.Livre livre in Model)
+        {
+            <tr>
+                <th scope="row">@Html.ActionLink(livre.Titre, "Livre", new { id = livre.Id })</th>
+                <td>@livre.DateDeParution.ToString("dd / MM / yyyy")</td>
+                <td>@livre.Auteur.Nom</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    @Html.Partial("_Bootstrap")
-    <title>Index de Afficher</title>
-</head>
-<body>
-    @Html.Partial("_Menu")
-
-    <div class="container">
-        <h1>Liste des Livres de la bibliothèque</h1>
-        <p>Clique sur le titre du livre pour voir sa fiche et le modifier</p>
-        <table class="table table-bordered table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Titre du livre</th>
-                    <th scope="col">Date de parution</th>
-                    <th scope="col">Auteur</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (eBiblio.Models.Livre livre in Model)
-                {
-                    <tr>
-                        <th scope="row">@Html.ActionLink(livre.Titre, "Livre", new { id = livre.Id })</th>
-                        <td>@livre.DateDeParution.ToString("dd / MM / yyyy")</td>
-                        <td>@livre.Auteur.Nom</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</body>
-</html>

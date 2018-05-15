@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Styles\Site.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +134,7 @@
     <Content Include="Views\Shared\Echantillon.cshtml" />
     <Content Include="Views\Creer\Livre.cshtml" />
     <Content Include="Views\Creer\Auteur.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -142,7 +144,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Styles\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

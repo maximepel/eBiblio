@@ -1,71 +1,56 @@
 ﻿@model eBiblio.ViewModels.ResultatRecherche
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Rechercher";
 }
+<h1>Votre recherche</h1>
+@if (!string.IsNullOrWhiteSpace(Model.recherche))
+{
+    <p>Ce que vous avez tapé : @Model.recherche</p>
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    @Html.Partial("_Bootstrap")
-    <title>Index de Rechercher</title>
-</head>
-<body>
-    @Html.Partial("_Menu")
-    <div class="container">
-        <h1>Votre recherche</h1>
-        @if (!string.IsNullOrWhiteSpace(Model.recherche))
-        {
-            <p>Ce que vous avez tapé : @Model.recherche</p>
-
-            <h2>Résultats dans les livres : @Model.nombreLivresTrouves</h2>
-            if (@Model.nombreLivresTrouves > 0)
-            {
-            <table class="table table-stripped table-dark">
-                <thead>
+    <h2>Résultats dans les livres : @Model.nombreLivresTrouves</h2>
+    if (@Model.nombreLivresTrouves > 0)
+    {
+        <table class="table table-stripped table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Titre du livre</th>
+                    <th scope="col">Date de parution</th>
+                    <th scope="col">Auteur</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (eBiblio.Models.Livre livre in Model.listeLivresTrouves)
+                {
                     <tr>
-                        <th scope="col">Titre du livre</th>
-                        <th scope="col">Date de parution</th>
-                        <th scope="col">Auteur</th>
+                        <td>@Html.ActionLink(livre.Titre, "Livre", "Afficher", new { id = livre.Id }, null)</td>
+                        <td>@livre.DateDeParution.ToString("dd / MM / yyyy")</td>
+                        <td>@livre.Auteur.Nom</td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (eBiblio.Models.Livre livre in Model.listeLivresTrouves)
-                    {
-                        <tr>
-                            <td>@Html.ActionLink(livre.Titre, "Livre", "Afficher", new { id = livre.Id }, null)</td>
-                            <td>@livre.DateDeParution.ToString("dd / MM / yyyy")</td>
-                            <td>@livre.Auteur.Nom</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            }
+                }
+            </tbody>
+        </table>
+    }
 
 
-            <h2>Résultats dans les auteurs : @Model.nombreAuteursTrouves</h2>
-            if (@Model.nombreAuteursTrouves > 0)
+    <h2>Résultats dans les auteurs : @Model.nombreAuteursTrouves</h2>
+    if (@Model.nombreAuteursTrouves > 0)
+    {
+        <table class="table table-bordered table-dark table-sm">
+            <tr>
+                <th class="thead-dark">Nom de l'auteur</th>
+            </tr>
+            @foreach (eBiblio.Models.Auteur auteur in Model.listeAuteursTrouves)
             {
-                <table class="table table-bordered table-dark table-sm">
-                    <tr>
-                        <th class="thead-dark">Nom de l'auteur</th>
-                    </tr>
-                    @foreach (eBiblio.Models.Auteur auteur in Model.listeAuteursTrouves)
-                    {
-                        <tr>
-                            <td>@Html.ActionLink(auteur.Nom, "Auteur", "Afficher", new { id = auteur.Id }, null)</td>
-                        </tr>
-                    }
-                </table>
+                <tr>
+                    <td>@Html.ActionLink(auteur.Nom, "Auteur", "Afficher", new { id = auteur.Id }, null)</td>
+                </tr>
             }
-        }
-        else
-        {
-            <p>Pour effectuer une recherche tapez dans l'URL /Rechercher/Livre/### où ### est votre recherche</p>
-        }
-
-    </div>
-</body>
-</html>
+        </table>
+    }
+}
+else
+{
+    <p>Pour effectuer une recherche tapez dans l'URL /Rechercher/Livre/### où ### est votre recherche</p>
+}
 

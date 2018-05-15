@@ -1,37 +1,24 @@
 ﻿@model List<eBiblio.Models.Auteur>
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Afficher - Liste des auteurs";
 }
+<h1>Les auteurs</h1>
+<p>Clique sur le nom de l'auteur pour consulter la liste de ses livres.</p>
 
-<!DOCTYPE html>
+<table class="table table-dark table-bordered table-striped table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Nom de l'auteur</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (eBiblio.Models.Auteur auteur in Model)
+        {
+            <tr>
+                <th scope="row">@Html.ActionLink(auteur.Nom, "Auteur", new { id = auteur.Id })</th>
+            </tr>
+        }
+    </tbody>
+</table>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    @Html.Partial("_Bootstrap")
-    <title>Auteurs</title>
-</head>
-<body>
-    @Html.Partial("_Menu")
-    <div class="container">
-        <h1>Les auteurs</h1>
-        <p>Clique sur le nom de l'auteur pour consulter la liste de ses livres.</p>
-
-        <table class="table table-dark table-bordered table-striped table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Nom de l'auteur</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (eBiblio.Models.Auteur auteur in Model)
-                {
-                    <tr>
-                        <th scope="row">@Html.ActionLink(auteur.Nom, "Auteur", new { id = auteur.Id })</th>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</body>
-</html>

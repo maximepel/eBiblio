@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Html.Partial("_Bootstrap")
+    <link type="text/css" rel="stylesheet" href="~/Styles/Site.css" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    @Html.Partial("_Menu")
+
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    <div id="footer">
+        <div class="container">
+            &copy; @DateTime.Now.Year - eBiblio
+        </div>
+    </div>
+</body>
+</html>
