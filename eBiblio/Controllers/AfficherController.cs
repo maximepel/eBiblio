@@ -22,19 +22,31 @@ namespace eBiblio.Controllers
             dal = dalIoc;
         }
 
-        // GET: Afficher
+        // GET: / ou /Afficher ou /Afficher/Index
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        // GET partiel dans /
+        public ActionResult ListeLivres()
         {
             // Liste de tous les livres (titre + auteur)
             List<Livre> listeLivres = dal.ObtientTousLesLivres();
-            return View(listeLivres);
+            return PartialView(listeLivres.OrderBy(r => r.Titre).ToList());
         }
 
         public ActionResult Auteurs()
         {
+            return View();
+        }
+
+        // GET partiel dans /Afficher/Auteurs
+        public ActionResult ListeAuteurs()
+        {
             // Liste de tous les auteurs
             List<Auteur> listeAuteurs = dal.ObtientTousLesAuteurs();
-            return View(listeAuteurs);
+            return PartialView(listeAuteurs.OrderBy(r => r.Nom).ToList());
         }
 
         public ActionResult Auteur(string id)

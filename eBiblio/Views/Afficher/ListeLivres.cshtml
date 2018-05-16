@@ -1,0 +1,22 @@
+﻿@model List<eBiblio.Models.Livre>
+
+<table class="table table-bordered table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Titre du livre</th>
+            <th scope="col">Date de parution</th>
+            <th scope="col">Auteur</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (eBiblio.Models.Livre livre in Model)
+        {
+            <tr>
+                <th scope="row">@Html.ActionLink(livre.Titre, "Livre", new { id = livre.Id })</th>
+                <td>@livre.DateDeParution.ToString("dd / MM / yyyy")</td>
+                <td>@livre.Auteur.Nom</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<p>Vue partielle : @DateTime.Now.ToLongTimeString()</p>

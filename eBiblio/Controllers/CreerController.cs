@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace eBiblio.Controllers
 {
+    [Authorize] // Il faut etre authentifié
     public class CreerController : Controller
     {
         private IDal dal;
@@ -31,6 +32,7 @@ namespace eBiblio.Controllers
         }
 
         // GET: Creer
+        [AllowAnonymous]
         public ActionResult Livre()
         {
             CreerLivre vm = new CreerLivre
@@ -41,6 +43,7 @@ namespace eBiblio.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Livre(CreerLivre vm)
         {
             vm.Auteurs = new SelectList(dal.ObtientTousLesAuteurs(), "Id", "Nom");
@@ -103,5 +106,6 @@ namespace eBiblio.Controllers
                 }
             }
         }
+
     }
 }

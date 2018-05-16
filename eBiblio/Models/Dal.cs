@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 
 namespace eBiblio.Models
@@ -109,6 +111,50 @@ namespace eBiblio.Models
                 bdd.SaveChanges();
             }
         }
+
+
+        /*
+        ###################################################################################
+        #######################              AUTH             #############################
+        ###################################################################################
+        */
+        public int AjouterUtilisateur(string pseudo, string motDePasse)
+        {
+            string motDePasseEncode = EncodeMD5(motDePasse);
+            Utilisateur utilisateur = new Utilisateur { Pseudo = pseudo, MotDePasse = motDePasseEncode, Statut = "Lambda" };
+            bdd.Utilisateurs.Add(utilisateur);
+            bdd.SaveChanges();
+            return utilisateur.Id;
+        }
+
+        public Utilisateur Authentifier(string pseudo, string motDePasse)
+        {
+            string motDePasseEncode = EncodeMD5(motDePasse);
+            return bdd.Utilisateurs.FirstOrDefault(u => u.Pseudo == pseudo && u.MotDePasse == motDePasseEncode);
+        }
+
+        public Utilisateur ObtenirUtilisateur(int id)
+        {
+            return bdd.Utilisateurs.FirstOrDefault(u => u.Id == id);
+        }
+
+        public Utilisateur ObtenirUtilisateur(string idString)
+        {
+            int id;
+            if (int.TryParse(idString, out id))
+                return ObtenirUtilisateur(id);
+            return null;
+        }
+
+        private string EncodeMD5(string motDePasse)
+        {
+            string motDePasseSel = "debut encodage" + motDePasse + "fin encodage";
+            return BitConverter.ToString(new MD5CryptoServiceProvider().ComputeHash(ASCIIEncoding.Default.GetBytes(motDePasseSel)));
+        }
+        /*
+        ###################################################################################
+        ###################################################################################
+        */
 
         public void Dispose()
         {

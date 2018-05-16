@@ -9,9 +9,7 @@ namespace eBiblio.ViewModels
     public class ResultatRecherche
     {
         public String recherche { get; set; }
-        public int nombreLivresTrouves { get; set; }
         public List<Livre> listeLivresTrouves { get; set; }
-        public int nombreAuteursTrouves { get; set; }
         public List<Auteur> listeAuteursTrouves { get; set; }
     }
 }

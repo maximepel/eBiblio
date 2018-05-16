@@ -1,0 +1,61 @@
+﻿@model eBiblio.ViewModels.ResultatRecherche
+
+@if (!string.IsNullOrWhiteSpace(Model.recherche))
+{
+    <p>Vue partielle : @DateTime.Now.ToLongTimeString()</p>
+    <h2>Résultats dans les livres : @Model.listeLivresTrouves.Count</h2>
+    if (@Model.listeLivresTrouves.Count == 0)
+    {
+        <p>Pas de résultats dans les livres.</p>
+    }
+    else
+    {
+        <table class="table table-stripped table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Titre du livre</th>
+                    <th scope="col">Date de parution</th>
+                    <th scope="col">Auteur</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (eBiblio.Models.Livre livre in Model.listeLivresTrouves)
+                {
+                    <tr>
+                        <td>@Html.ActionLink(livre.Titre, "Livre", "Afficher", new { id = livre.Id }, null)</td>
+                        <td>@livre.DateDeParution.ToString("dd / MM / yyyy")</td>
+                        <td>@livre.Auteur.Nom</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+
+    <h2>Résultats dans les auteurs : @Model.listeAuteursTrouves.Count</h2>
+    if (@Model.listeAuteursTrouves.Count == 0)
+    {
+        <p>Pas de résultats dans les Auteurs.</p>
+    }
+    else
+    {
+        <table class="table table-bordered table-dark table-sm">
+            <tr>
+                <th class="thead-dark">Nom de l'auteur</th>
+            </tr>
+            @foreach (eBiblio.Models.Auteur auteur in Model.listeAuteursTrouves)
+            {
+                <tr>
+                    <td>@Html.ActionLink(auteur.Nom, "Auteur", "Afficher", new { id = auteur.Id }, null)</td>
+                </tr>
+            }
+        </table>
+    }
+}
+else
+{
+    // Dans le cas ou quelqu'un tape directement la recherche dans l'URL
+    // Je n'ai pas mis l'attribut ChildActionOnly à la méthode du controller car Ajax ne fonctionnerait pas.
+    <p>Pour effectuer une recherche, utilisez la barre de recherche.</p>
+}
+

@@ -1,24 +1,38 @@
-﻿@model List<eBiblio.Models.Auteur>
-@{
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Afficher - Liste des auteurs";
 }
+
+<script type="text/javascript">
+    var timer;
+    function ChargeVuePartielle() {
+        // Fait une requête AJAX qui appelle la vue partielles "ListeAuteur" du controlleur Afficher
+        // Url.Action simule le clic sur un lien
+        // C'est un peu différent de l'appel Ajax.ActionLink qui lui : génère un lien sur lequel cliquer pour rafraichir
+        $.ajax({
+            url: '@Url.Action("ListeAuteurs")',
+            type: 'GET',
+            dataType: 'html',
+            success: function (result) {
+                $('#listeAuteurs').html(result);
+        }
+    });
+    }
+
+    $(function () {
+        // Appelle la fonction "ChargeVuePartielle()" toutes les 10 secondes
+        timer = window.setInterval("ChargeVuePartielle()", 10000);
+    });
+</script>
+
 <h1>Les auteurs</h1>
 <p>Clique sur le nom de l'auteur pour consulter la liste de ses livres.</p>
 
-<table class="table table-dark table-bordered table-striped table-hover">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col">Nom de l'auteur</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (eBiblio.Models.Auteur auteur in Model)
-        {
-            <tr>
-                <th scope="row">@Html.ActionLink(auteur.Nom, "Auteur", new { id = auteur.Id })</th>
-            </tr>
-        }
-    </tbody>
-</table>
+<div id="listeAuteurs">
+    @{
+        Html.RenderAction("ListeAuteurs");
+    }
+</div>
 
+
+<p>Vue normale avec timer de rafraichissement toutes les 10 secondes : @DateTime.Now.ToLongTimeString()</p>

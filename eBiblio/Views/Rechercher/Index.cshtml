@@ -3,54 +3,36 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Rechercher";
 }
+
+<script type="text/javascript">
+    function ErreurRecherche() {
+        $("#resultats").html("Une erreur s'est produite lors de la recherche, veuillez réessayer ...");
+    }
+</script>
+
 <h1>Votre recherche</h1>
-@if (!string.IsNullOrWhiteSpace(Model.recherche))
+
+@using (Ajax.BeginForm("Resultats", new AjaxOptions
 {
-    <p>Ce que vous avez tapé : @Model.recherche</p>
-
-    <h2>Résultats dans les livres : @Model.nombreLivresTrouves</h2>
-    if (@Model.nombreLivresTrouves > 0)
-    {
-        <table class="table table-stripped table-dark">
-            <thead>
-                <tr>
-                    <th scope="col">Titre du livre</th>
-                    <th scope="col">Date de parution</th>
-                    <th scope="col">Auteur</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (eBiblio.Models.Livre livre in Model.listeLivresTrouves)
-                {
-                    <tr>
-                        <td>@Html.ActionLink(livre.Titre, "Livre", "Afficher", new { id = livre.Id }, null)</td>
-                        <td>@livre.DateDeParution.ToString("dd / MM / yyyy")</td>
-                        <td>@livre.Auteur.Nom</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-
-
-    <h2>Résultats dans les auteurs : @Model.nombreAuteursTrouves</h2>
-    if (@Model.nombreAuteursTrouves > 0)
-    {
-        <table class="table table-bordered table-dark table-sm">
-            <tr>
-                <th class="thead-dark">Nom de l'auteur</th>
-            </tr>
-            @foreach (eBiblio.Models.Auteur auteur in Model.listeAuteursTrouves)
-            {
-                <tr>
-                    <td>@Html.ActionLink(auteur.Nom, "Auteur", "Afficher", new { id = auteur.Id }, null)</td>
-                </tr>
-            }
-        </table>
-    }
-}
-else
+    HttpMethod = "GET",                         // Methode HTTP
+    InsertionMode = InsertionMode.Replace,      // Methode AJAX
+    UpdateTargetId = "resultats",               // Propriété id de balise div du RenderAction
+    OnFailure = "ErreurRecherche",              // Fonction
+    LoadingElementId = "chargement"             // Propriété id de balise img
+}))
 {
-    <p>Pour effectuer une recherche tapez dans l'URL /Rechercher/Livre/### où ### est votre recherche</p>
+    @Html.TextBoxFor(m => m.recherche);
+    <img id="chargement" src="~/Content/Images/ajax-loader(realisé sur www.ajaxload.info).gif" style="display: none" alt="Chargement en cours..." />
+    <input type="submit" class="btn btn-info" value="Rechercher sans recharger la page entière" />
+    <p>Vue principale : @DateTime.Now.ToLongTimeString()</p>
+
+    <div id="resultats">
+        @{Html.RenderAction("Resultats", "Rechercher", Model);}
+    </div>
 }
 
+<!-- Si on ne veut pas implémenter le second formulaire Ajax
+
+@{Html.RenderAction("Resultats", "Rechercher", Model);}
+
+-->

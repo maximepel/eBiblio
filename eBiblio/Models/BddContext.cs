@@ -11,5 +11,6 @@ namespace eBiblio.Models
         public DbSet<Auteur> Auteurs { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Livre> Livres { get; set; }
+        public DbSet<Utilisateur> Utilisateurs { get; set; }
     }
 }

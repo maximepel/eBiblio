@@ -33,36 +33,38 @@ namespace eBiblio.Controllers
         // GET: Rechercher
         public ActionResult Index(string id)
         {
-            if (!string.IsNullOrWhiteSpace(id))
+            ResultatRecherche vm = new ResultatRecherche
             {
+                recherche = id,
+            };
+            return View(vm);
+        }
 
+        public ActionResult Resultats(ResultatRecherche vm)
+        {
+            if (!string.IsNullOrWhiteSpace(vm.recherche))
+            {
                 List<Livre> livresTrouves = new List<Livre>(); // Tous les livres qui comporteront la chaine de caractère "id"
                 List<Auteur> auteursTrouves = new List<Auteur>(); // Tous les auteurs qui comporteront la chaine de caractère "id"
 
-                // Cherche ceux qui ont le titre qui contient id
+                // Cherche ceux qui ont le titre qui contient vm.recherche
                 foreach (Livre livre in dal.ObtientTousLesLivres())
                 {
-                    if (livre.Titre.IndexOf(id, StringComparison.OrdinalIgnoreCase) >= 0)
+                    if (livre.Titre.IndexOf(vm.recherche, StringComparison.OrdinalIgnoreCase) >= 0)
                         livresTrouves.Add(livre);
-                    if (livre.Auteur.Nom.IndexOf(id, StringComparison.OrdinalIgnoreCase) >= 0 && !auteursTrouves.Contains(livre.Auteur))
+                    if (livre.Auteur.Nom.IndexOf(vm.recherche, StringComparison.OrdinalIgnoreCase) >= 0 && !auteursTrouves.Contains(livre.Auteur))
                         auteursTrouves.Add(livre.Auteur);
                 }
 
-                ResultatRecherche vm = new ResultatRecherche
-                {
-                    recherche = id,
-                    nombreLivresTrouves = livresTrouves.Count,
-                    listeLivresTrouves = livresTrouves,
-                    nombreAuteursTrouves = auteursTrouves.Count,
-                    listeAuteursTrouves = auteursTrouves
-                };
-                return View(vm);
+                vm.listeAuteursTrouves = auteursTrouves;
+                vm.listeLivresTrouves = livresTrouves;
+
+                return PartialView(vm);
             }
             else
             {
-                return View("ErrorRechercher");
+                return PartialView(vm);
             }
-            
         }
     }
 }

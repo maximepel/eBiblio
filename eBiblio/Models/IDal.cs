@@ -17,7 +17,7 @@ namespace eBiblio.Models
 
         Auteur ChercheAuteur(string nom);
         Auteur ChercheAuteur(int id);
-        bool AuteurExiste(string titre);
+        bool AuteurExiste(string nom);
 
         Client ChercheClient(string email);
         
@@ -28,6 +28,13 @@ namespace eBiblio.Models
         void EmprunterLivre(Client client, Livre livre);
         void RendreLivre(Client client, Livre livre);
 
+        // AUTHENTICATION
+        int AjouterUtilisateur(string nom, string motDePasse);
+        Utilisateur Authentifier(string nom, string motDePasse);
+        Utilisateur ObtenirUtilisateur(int id);
+        Utilisateur ObtenirUtilisateur(string idString);
+
+        // Pour les tests utilisateurs/application
         void CreerEchantillon();
     }
 }

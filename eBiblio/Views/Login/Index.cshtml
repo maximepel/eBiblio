@@ -1,0 +1,41 @@
+﻿@model eBiblio.ViewModels.UtilisateurViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Se connecter";
+}
+
+@if (Model.Authentifie)
+{
+    <h3>Vous êtes déjà authentifié avec le login : @Model.Utilisateur.Pseudo</h3>
+    @Html.ActionLink("Voulez-vous vous déconnecter ?", "Deconnexion")
+}
+else
+{
+    <h2>Se connecter à l'application : </h2>
+    using (Html.BeginForm())
+    {
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Utilisateur.Pseudo, new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.Utilisateur.Pseudo, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Utilisateur.Pseudo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Utilisateur.MotDePasse, new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.PasswordFor(model => model.Utilisateur.MotDePasse, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Utilisateur.MotDePasse, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-6 text-center">
+                    <input type="submit" value="Se connecter" class="btn btn-warning" />
+                </div>
+            </div>
+            @Html.ActionLink("Créer un compte", "CreerCompte")
+        </div>
+    }
+}

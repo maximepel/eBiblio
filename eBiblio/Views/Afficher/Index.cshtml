@@ -1,27 +1,27 @@
-﻿@model List<eBiblio.Models.Livre>
-@{
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Afficher - Liste des livres";
 }
+
+<script type="text/javascript">
+    function ErreurListeLivres() {
+        $("#listeLivres").html("Une erreur s'est produite lors de la mise à jour, veuillez réessayer ...");
+    }
+</script>
+
 <h1>Liste des Livres de la bibliothèque</h1>
 <p>Clique sur le titre du livre pour voir sa fiche et le modifier</p>
-<table class="table table-bordered table-hover">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col">Titre du livre</th>
-            <th scope="col">Date de parution</th>
-            <th scope="col">Auteur</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (eBiblio.Models.Livre livre in Model)
-        {
-            <tr>
-                <th scope="row">@Html.ActionLink(livre.Titre, "Livre", new { id = livre.Id })</th>
-                <td>@livre.DateDeParution.ToString("dd / MM / yyyy")</td>
-                <td>@livre.Auteur.Nom</td>
-            </tr>
-        }
-    </tbody>
-</table>
-
+<div id="listeLivres">
+    @{
+        Html.RenderAction("ListeLivres");
+    }
+</div>
+    
+@Ajax.ActionLink("Actualiser la liste", "ListeLivres", "Afficher", new AjaxOptions
+{
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "listeLivres",
+    HttpMethod = "GET",
+    OnFailure = "ErreurListeLivres" // En cas d'erreur sur la requête AJAX
+})
+<p>Vue normale avec Ajax.ActionLink : @DateTime.Now.ToLongTimeString()</p>
